@@ -21,5 +21,6 @@ from habits import views as habitsViews
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', habitsViews.home),
+    path('about/', habitsViews.about),
 ]
 
