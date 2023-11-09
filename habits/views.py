@@ -1,13 +1,17 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 
+from .models import Habit
 # Create your views here.
 
 def home(request):
-    #return HttpResponse('<h1>Welcome to Home Page</h1>')
-    #return render(request, 'home.html')
-    return render(request, 'home.html', {'name' : 'Jeronimo Perez Baquero'})
+    searchTerm = request.GET.get('searchHabit')
+    if searchTerm:
+        habits = Habit.objects.filter(title__icontains=searchTerm)
+    else:
+        habits = Habit.objects.all()
+    return render(request, 'home.html', {'searchTerm':searchTerm, 'habits':habits})
 
 def about(request):
-    return render(request, 'about.html', {'name' : 'Jeronimo Perez Baquero'})
+    return render(request, 'about.html')
     
